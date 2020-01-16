@@ -1,0 +1,2 @@
+[rabbitmq:vars]
+rabbit_host=rabbithost.com

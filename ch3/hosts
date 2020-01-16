@@ -1,4 +1,46 @@
-[webservers]
-vagrant1 ansible_host=127.0.0.1 ansible_port=2222
-vagrant2 ansible_host=127.0.0.1 ansible_port=2200
+# Группировка хостов
+[vagrant]
+vagrant1 ansible_host=127.0.0.1 ansible_port=2222               # Хост с поведенческими параметрами Ansible
+vagrant2 ansible_host=127.0.0.1 ansible_port=2200 color=red     # Хост со своим параметром
 vagrant3 ansible_host=127.0.0.1 ansible_port=2201
+
+[production]
+prod1.com
+prod2.com
+
+[rabbitmq]
+rabbit[1:3].com       # Группа хостов заданных диапазоном с 1 до 3
+rabbit[01:10].com     # Группа хостов заданных диапазоном с 1 до 10 с дополнением нулем
+rabbit[a:d].com       # Группа хостов заданных диапазоном с a до d
+
+[redis]
+redis1.com
+
+[staging]
+staging1.com
+staging2.com
+
+
+# Группировка групп хостов
+[tasks:children]
+redis
+rabbitmq
+
+
+# Переменных групп
+# Можно хранить переменные прямо в файле реестра или в отдельных файлах или папках (название группы)
+# в каталогах group_vars и host_vars
+# Поддерживается формат yaml
+[all:vars]              # Для всех групп
+ntp_server=ntp.ubuntu.com
+
+[production:vars]       # Для группы production
+db_host=dbhost.com
+db_name=prod
+db_user=user
+db_password=123
+
+
+# Можно создавать динамические реестры, положив в эти папки исполныемый файл
+# ответ предоставляется в JSON
+# параметры host и list (стр 76)

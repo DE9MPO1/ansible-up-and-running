@@ -1,0 +1,8 @@
+# Группа будет называться staging
+# также можно создать каталог staging
+# и внутри поместить файлы с переменными
+db:
+  host: locahost
+
+rabbitmq:
+  host: localhost
