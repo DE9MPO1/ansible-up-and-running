@@ -1,0 +1,13 @@
+- name: clone
+  hosts: webserver
+  vars:
+    repo_url: https://github.com/evsamsonov/ansible-up-and-running.git
+  tasks:
+    -
+    - name: install git
+      become: True
+      yum:
+        name: git
+        state: latest
+    - name: clone repository
+      git: repo={{ repo_url }} dest=ansible-up-and-running accept_hostkey=yes
